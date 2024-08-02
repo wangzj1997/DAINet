@@ -1,0 +1,18 @@
+net: # Required.
+  num_classes: 2
+  encoder:
+    type: model.resnet.resnet50
+    kwargs:
+      fpn: True
+      multi_grid: True
+      zero_init_residual: True
+      replace_stride_with_dilation: [False, False, False]  #layer0...1 is fixed, layer2...4
+  decoder:
+    type: model.fpn_ifa.fpn_ifa
+    kwargs:
+      inner_planes: 256
+      dilations: [12, 24, 36]
+      ultra_pe: True
+      pos_dim: 24
+      no_aspp: True
+      require_grad: True
